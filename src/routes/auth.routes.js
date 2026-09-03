@@ -5,8 +5,20 @@ const authRouter = Router();
 
 authRouter.post("/register",authController.register);
 
-/**
- * getMe
+/**@abstract
+ * Login a user
+ * @route POST /api/auth/login
+ * @access Public
+ * @returns {Object} - Returns a message indicating successful login
+ */
+
+authRouter.post("/login", authController.login);
+
+/**@abstract
+ * Get the logged in user
+ * @route GET /api/auth/loggedIn
+ * @access Public
+ * @returns {Object} - Returns the logged in user
  */
 
 authRouter.get("/loggedIn",authController.loggedIn);
@@ -26,6 +38,15 @@ authRouter.get("/refreshToken", authController.refreshToken);
  * @returns {Object} - Returns a message indicating successful logout   
  */
 
-authRouter.get("/logout", authController.logout);
+authRouter.post("/logout", authController.logout);
+
+/**@abstract
+ * logoutAll
+ * @route POST /api/auth/logout
+ * @access Public
+ * @returns {Object} - Returns a message indicating successful logout
+ */
+
+authRouter.post("/logoutAll", authController.logoutAll);
 
 export default authRouter;
