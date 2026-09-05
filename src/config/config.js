@@ -5,7 +5,7 @@ if (!process.env.MONGO_URI) {
     throw new Error("There no mongo uri in envirmental file")
 }
 
-if(!process.env.jwt_secret) {
+if(!process.env.JWT_SECRET) {
     throw new Error("There is no jwt secret in envirmental file")
 }
 
