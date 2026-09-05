@@ -49,4 +49,12 @@ authRouter.post("/logout", authController.logout);
 
 authRouter.post("/logoutAll", authController.logoutAll);
 
+/**@abstract
+ * Verify email
+ * @route GET /api/auth/verifyEmail/
+ * @access Public
+ * @returns {Object} - Returns a message indicating successful email verification
+ */
+authRouter.post("/verifyEmail", authController.verifyEmail);
+
 export default authRouter;
