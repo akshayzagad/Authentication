@@ -1,6 +1,11 @@
 import nodemailer from "nodemailer";
 import config from "../config/config.js";
 
+console.log("EMAIL USER:", config.GOOGLE_USER);
+console.log("CLIENT ID:", !!config.GOOGLE_CLIENT_ID);
+console.log("CLIENT SECRET:", !!config.GOOGLE_CLIENT_SECRET);
+console.log("REFRESH TOKEN:", !!config.REFRESH_TOKEN);
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
