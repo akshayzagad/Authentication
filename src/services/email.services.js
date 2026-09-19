@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import config from "../config/config.js";
 
+console.log("===== EMAIL SERVICE LOADED =====");
 console.log("EMAIL USER:", config.GOOGLE_USER);
 console.log("CLIENT ID:", !!config.GOOGLE_CLIENT_ID);
 console.log("CLIENT SECRET:", !!config.GOOGLE_CLIENT_SECRET);
