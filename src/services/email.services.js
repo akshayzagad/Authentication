@@ -8,18 +8,21 @@ console.log("CLIENT SECRET:", !!config.GOOGLE_CLIENT_SECRET);
 console.log("REFRESH TOKEN:", !!config.REFRESH_TOKEN);
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+
   auth: {
     type: "OAuth2",
     user: config.GOOGLE_USER,
     clientId: config.GOOGLE_CLIENT_ID,
     clientSecret: config.GOOGLE_CLIENT_SECRET,
     refreshToken: config.REFRESH_TOKEN,
-    // accessToken: config.ACCESS_TOKEN,
   },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
+
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 20000,
 });
 
 transporter.verify()
