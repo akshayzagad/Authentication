@@ -9,8 +9,16 @@ const transporter = nodemailer.createTransport({
     clientId: config.GOOGLE_CLIENT_ID,
     clientSecret: config.GOOGLE_CLIENT_SECRET,
     refreshToken: config.REFRESH_TOKEN,
-    accessToken: config.ACCESS_TOKEN,
+    // accessToken: config.ACCESS_TOKEN,
   },
+});
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("EMAIL CONFIG ERROR:", error);
+  } else {
+    console.log("EMAIL SERVER IS READY:", success);
+  }
 });
 
 export async function sendEmail(to, subject, text, html) {
