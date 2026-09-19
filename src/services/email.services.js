@@ -19,23 +19,32 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter.verify((error, success) => {
-  if (error) {
+transporter.verify()
+  .then(() => {
+    console.log("EMAIL SERVER IS READY");
+  })
+  .catch((error) => {
     console.error("EMAIL CONFIG ERROR:", error);
-  } else {
-    console.log("EMAIL SERVER IS READY:", success);
-  }
-});
-
-export async function sendEmail(to, subject, text, html) {
-  const info = await transporter.sendMail({
-    from: `"Your Name" <${config.GOOGLE_USER}>`,
-    to,
-    subject,
-    text,
-    html,
   });
 
-  console.log("Message sent: %s", info.messageId);
-  return info;
+export async function sendEmail(to, subject, text, html) {
+  console.log("BEFORE SEND MAIL");
+
+  try {
+    const info = await transporter.sendMail({
+      from: `"Your Name" <${config.GOOGLE_USER}>`,
+      to,
+      subject,
+      text,
+      html,
+    });
+
+    console.log("AFTER SEND MAIL");
+    console.log("Message sent:", info.messageId);
+
+    return info;
+  } catch (error) {
+    console.error("SEND EMAIL ERROR:", error);
+    throw error;
+  }
 }
