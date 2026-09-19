@@ -8,12 +8,15 @@ import otpModel from "../models/otp.model.js";
 import { generateOTP, getOtpHtml } from "../utils/utils.js";
 
 export async function register(req, res) {
+   console.log("1. REGISTER START");
   const { username, email, password } = req.body;
 
+    console.log("2. Request body received");
   const isAlreadyRegister = await userModel.findOne({
     $or: [{ username }, { email }],
   });
 
+    console.log("3. User check completed");
   if (isAlreadyRegister) {
     return res.status(409).json({ message: "User already registered" });
   }
@@ -29,6 +32,7 @@ export async function register(req, res) {
     password: hashPassword,
   });
 
+  console.log("4. User created");
   const otp = generateOTP();
   const html = getOtpHtml(otp);
 
@@ -39,9 +43,11 @@ export async function register(req, res) {
     user,
     otpHash, // OTP expires in 10 minutes
   });
+  console.log("5. OTP created");
 
   await sendEmail(email, "Email Verification", `Your OTP is: ${otp}`, html);
 
+   console.log("6. Email sent");
   // const refreshToken = jwt.sign({ id: user._id }, config.JWT_SECRET, {
   //   expiresIn: "7d",
   // });
@@ -81,6 +87,7 @@ export async function register(req, res) {
 }
 
 export async function login(req, res) {
+  
   const { email, password } = req.body;
 
   const user = await userModel.findOne({ email });
