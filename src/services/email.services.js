@@ -17,6 +17,9 @@ const transporter = nodemailer.createTransport({
     refreshToken: config.REFRESH_TOKEN,
     // accessToken: config.ACCESS_TOKEN,
   },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
 transporter.verify()
