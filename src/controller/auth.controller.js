@@ -205,6 +205,8 @@ export async function refreshToken(req, res) {
 
   session.refreshToken = refreshTokenHashNew;
 
+  await session.save();
+
   res.cookie("refreshToken", refreshTokenNew, {
     httpOnly: true,
     secure: true,
