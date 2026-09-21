@@ -162,8 +162,9 @@ export async function loggedIn(req, res) {
 
   res.status(200).json({
     message: "User fetched successfully",
-    username: user.name,
-    email: user.email,
+    // username: user.name,
+    // email: user.email,
+    user
   });
 }
 
