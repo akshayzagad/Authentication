@@ -131,7 +131,7 @@ export async function login(req, res) {
     { id: user._id, sessionId: session._id },
     config.JWT_SECRET,
     {
-      expiresIn: "1m",
+      expiresIn: "50m",
     },
   );
 
