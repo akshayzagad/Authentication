@@ -68,7 +68,7 @@ export async function register(req, res) {
   //   { id: user._id, sessionId: session._id },
   //   config.JWT_SECRET,
   //   {
-  //     expiresIn: "1h",
+  //     expiresIn: "1m",
   //   },
   // );
 
@@ -131,7 +131,7 @@ export async function login(req, res) {
     { id: user._id, sessionId: session._id },
     config.JWT_SECRET,
     {
-      expiresIn: "1h",
+      expiresIn: "1m",
     },
   );
 
