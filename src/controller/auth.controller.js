@@ -191,7 +191,7 @@ export async function refreshToken(req, res) {
   }
 
   const accessToken = jwt.sign({ id: decoded.id }, config.JWT_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "50s",
   });
 
   const refreshTokenNew = jwt.sign({ id: decoded.id }, config.JWT_SECRET, {
