@@ -8,15 +8,15 @@ import otpModel from "../models/otp.model.js";
 import { generateOTP, getOtpHtml } from "../utils/utils.js";
 
 export async function register(req, res) {
-   console.log("1. REGISTER START");
+  console.log("1. REGISTER START");
   const { username, email, password } = req.body;
 
-    console.log("2. Request body received");
+  console.log("2. Request body received");
   const isAlreadyRegister = await userModel.findOne({
     $or: [{ username }, { email }],
   });
 
-    console.log("3. User check completed");
+  console.log("3. User check completed");
   if (isAlreadyRegister) {
     return res.status(409).json({ message: "User already registered" });
   }
@@ -47,7 +47,7 @@ export async function register(req, res) {
 
   await sendEmail(email, "Email Verification", `Your OTP is: ${otp}`, html);
 
-   console.log("6. Email sent");
+  console.log("6. Email sent");
   // const refreshToken = jwt.sign({ id: user._id }, config.JWT_SECRET, {
   //   expiresIn: "7d",
   // });
@@ -87,7 +87,6 @@ export async function register(req, res) {
 }
 
 export async function login(req, res) {
-  
   const { email, password } = req.body;
 
   const user = await userModel.findOne({ email });
@@ -156,14 +155,18 @@ export async function loggedIn(req, res) {
     return res.status(401).json({ message: "Token is not provided" });
   }
 
-  const decoded = jwt.verify(token, config.JWT_SECRET);
+  try {
+    const decoded = jwt.verify(token, config.JWT_SECRET); // still throws if expired
+    const user = await userModel.findById(decoded.id).select("-password");
 
-  const user = await userModel.findById(decoded.id).select("-password");
-
-  res.status(200).json({
-    message: "User fetched successfully",
-    user: { name: user.name, email: user.email },
-  });
+    res.status(200).json({
+      message: "User fetched successfully",
+      user: { name: user.name, email: user.email },
+    });
+  } catch (error) {
+    // now WE decide what happens when it throws — send a clean 401
+    return res.status(401).json({ message: "Invalid or expired token" });
+  }
 }
 
 export async function refreshToken(req, res) {
